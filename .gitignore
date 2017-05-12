@@ -2,3 +2,7 @@ node_modules
 npm-debug.log
 configuration/*_
 logs/*.log
+
+public/uploads/images/original/*
+public/uploads/images/resized/*
+public/uploads/images/thumbnail/*
