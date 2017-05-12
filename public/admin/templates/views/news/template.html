@@ -1,0 +1,45 @@
+<div id="news">
+	{{> navigation active="news"}}
+	<header>
+		<h1>News</h1>
+	</header>
+	<main class="list">
+		{{#each posts}}
+			<div class="entry">
+				<h3>
+					<a href="/news/{{this._id}}">{{this.title}}</a>
+				</h3>
+				<p><small>{{this.postDate}}</small></p>
+				<div>
+					{{{markdownToExcerpt this.contentMarkdown 200}}}
+				</div>
+				<div class="delete-entry">
+					<button 
+						type="button" 
+						class="delete"
+						onclick="toggleElement('#delete_{{this._id}}')" 
+					>
+						Delete
+					</button>
+
+					<form 
+						method="post"
+						action="/news/delete/{{this._id}}" 
+						id="delete_{{this._id}}" 
+						class="deletePrompt"
+					>
+						<p>Do you really wanna delete <b><i>'{{this.title}}'</i></b> ?</p>
+						<button 
+							type="button" 
+							class="cancel" 
+							onclick="toggleElement('#delete_{{this._id}}')"
+						>
+							Cancel
+						</button> 
+						<button type="submit">Confirm and delete</button>
+					</form>
+				</div>
+			</div>
+		{{/each}}
+	</main>
+</div>

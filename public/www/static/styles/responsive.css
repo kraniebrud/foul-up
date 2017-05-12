@@ -1,0 +1,112 @@
+@media (max-width: 1160px) {
+	html, body{
+		padding: 0 15px !important;
+	}
+	body #wrapper {
+		width: 100%;
+	}
+	body #main.single-release .content{
+		width: 50%;
+	}
+	body #main.single-release .notes, body #main.single-release .press {
+		width: 46%;
+	}
+	#main article .notes:before {
+		display: none !important;
+	}
+}
+@media (max-width: 1085px) {
+	body #main.single-release .press {
+		width: 100%;
+	}
+}
+@media (max-width: 900px) {
+	body #main.single-release .press {
+		width: 100%;
+	}
+	html, body{
+		padding: 0 10px !important;
+		font-size: 14px !important;
+	}
+	body #wrapper {
+		margin: 10px auto;
+	}
+	body #main {
+		padding: 10px;
+	}
+	body #header .title h1 {
+		margin-left: 0;
+	}
+}
+@media (max-width: 800px) {
+	body #main.news .content, body #main.news .notes, #main.news .pagination {
+		width: 100%;
+	}
+	body #wrapper #main.news article header {
+		padding-right: 0;
+	}
+	body #header .inner{
+		width: 470px;
+	}
+	body #wrapper #main.releases article {
+		clear: both;
+		width: 100%;
+	}
+}
+@media (max-width: 640px) {
+	html, body {
+		padding: 5px 15px !important;
+	}
+	body #wrapper {
+		padding: 0;
+	}
+	body #wrapper #main .content, body #wrapper #main .notes, body #wrapper #header #menu {
+		width: 100%;
+		float: none;
+		clear: both;
+	}
+	body #wrapper #main .notes {
+		margin-top: 3.3rem;
+	}
+	body #header .inner, body #main {
+		width: 100%;
+	}
+	body #header nav {
+		margin: 0;
+	}
+	body #header h1 img {
+		display: none;
+	}
+	body #header {
+		margin: 30px 0 60px 0;
+	}
+	body #header .title h1 {
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+	body #wrapper #header #menu {
+		border: 2px solid blue;
+	}
+	body #wrapper #header #menu li {
+		width: 33.33%;
+		padding: 1rem 0;
+		margin: 0;
+		text-align: center;
+	}
+	body #wrapper #header #menu li.active:after {
+		display: block;
+		content: "";
+		height: 30px;
+		width: 100%;
+		background: #fff;
+		position: absolute;
+	}
+
+}
+
+@media (max-width: 500px) {
+	html, body {
+		padding: 0px 5px !important;
+	}
+}

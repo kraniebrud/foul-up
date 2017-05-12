@@ -1,0 +1,31 @@
+{
+  "name": "Foul-up",
+  "version": "0.0.1",
+  "description": "Foul-up",
+  "main": "public/server.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.0",
+    "boom": "^4.2.0",
+    "easyimage": "^2.1.0",
+    "handlebars": "^4.0.6",
+    "hapi": "^16.1.0",
+    "hapi-auth-cookie": "^7.0.0",
+    "inert": "^4.2.0",
+    "marked": "^0.3.6",
+    "mongoose": "^4.9.2",
+    "remove-markdown": "^0.1.0",
+    "slugg": "^1.1.0",
+    "superagent": "^3.5.2",
+    "vision": "^4.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "npm run server:public & npm run server:admin & wait",
+    "dev": "debug=true npm run dev-admin & npm run dev-public & wait",
+    "dev-admin": "forever --watch --watchDirectory ./public/admin ./public/admin.server.js",
+    "dev-public": "forever --watch --watchDirectory ./public/www ./public/public.server.js",
+    "server:admin": "forever public/admin.server.js",
+    "server:public": "forever ./public/public.server.js"
+  }
+}

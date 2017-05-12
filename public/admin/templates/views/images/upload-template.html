@@ -1,0 +1,67 @@
+<div id="media">
+	{{>navigation}}
+	<header>
+		<h1>{{title}}</h1>
+	</header>
+	<main id="main" class="media">
+		<form 
+			id="file-upload-form" 
+			method="post" 
+			enctype="multipart/form-data"
+			accept="image/*"
+		>
+			<div class="upload-area">
+				<label>Select a file to upload</label>
+				<input name="image" class="file-upload" type="file">
+			</div>
+		</form>
+		<br>
+		<div class="list">
+			{{#each data.images}}
+				<div class="image entry">
+					<img src="/uploads/images/thumbnail/{{this.fileName}}">
+
+					<div class="delete-entry">
+						<button 
+							type="button" 
+							class="delete"
+							onclick="toggleElement('#delete_{{this._id}}')" 
+						>
+							Delete
+						</button>
+
+						<form 
+							method="post"
+							action="/images/delete/{{this._id}}" 
+							id="delete_{{this._id}}" 
+							class="deletePrompt"
+						>
+							<p>Do you really wanna delete <b><i>'{{this.fileName}}'</i></b> ?</p>
+							<button 
+								type="button" 
+								class="cancel" 
+								onclick="toggleElement('#delete_{{this._id}}')"
+							>
+								Cancel
+							</button> 
+							<button type="submit">Confirm and delete</button>
+						</form>
+
+					</div>
+
+				</div>
+			{{/each}}
+		</div>
+	</main>
+</div>
+<script type="text/javascript">
+	//fileupload
+	var fileUploadInputElem = document.querySelector('.file-upload')
+	fileUploadInputElem.onchange = function(){
+		var uploadForm = document.getElementById('file-upload-form')
+		var fileName = this.value.split(/(\\|\/)/g).pop()
+		uploadForm.querySelector('label').innerText = fileName
+		uploadForm.className = 'processing'
+		uploadForm.submit()
+	}
+</script>

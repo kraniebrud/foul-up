@@ -1,0 +1,76 @@
+<main id="main" class="single-release">
+	<article>
+		<div class="notes">
+			<h1>
+				{{post.artist}} '{{post.title}}'
+			</h1>
+			<div class="details">
+				<a
+					id="scpToggle"
+					href="{{post.soundcloud.linkUrl}}"
+					class="scpButton play" 
+					onclick="toggleScp(event, this)"
+				>
+				</a>
+				<ul>
+					<li>{{post.catalogNumber}}</li>
+					<li>{{post.releaseFormat}}</li>
+					<li>{{post.releaseDate}}</li>
+				</ul>
+				<div id="scpSeekHolder">
+					<input 
+						id="scpSeek"
+						value="0" 
+						type="range" 
+						min="0" 
+						max="1000" 
+						step="1" 
+						oninput="scpSeek(this.value)" 
+						onchange="scpSeek(this.value)"
+					/>
+					<small>{{post.soundcloud.embedSongText}}</small>
+				</div>
+			</div>
+			{{#if post.buy}}
+				<div>
+					<h2>Buy</h2>
+					<ul>
+						{{#each post.buy}}
+							<li>
+								<a href="{{buyUrl}}" target="_blank">{{buyText}}</a>
+							</li>
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+		</div>
+		<aside class="content">
+			<figure class="cover multiple" onclick="switchCover(this)" data-count="1/{{post.images.length}}">
+				{{#each post.images}}
+					<img 
+						{{#if @index}}{{else}}class="visible"{{/if}}
+						src="/uploads/images/resized/{{fileName}}"
+						alt="/uploads/images/resized/{{title}}" 
+						data-count="{{plus @index 1}}/{{../post.images.length}}"
+					>
+				{{/each}}
+			</figure>
+		</aside>
+	</article>
+	<section class="press">
+		<h1>Press release</h1>
+		<div class="md-content">
+			{{{post.contentHtml}}}
+		</div>
+	</section>
+	<div id="scpHolder">
+		<iframe 
+			id="scp" 
+			allowtransparency="true"
+			scrolling="no" 
+			frameborder="no" 
+			src="{{scEmbedToWidgetSrc post.soundcloud.embedSongCode}}"
+		>
+		</iframe>
+	</div>
+</main>

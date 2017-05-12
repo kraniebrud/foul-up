@@ -1,0 +1,36 @@
+<div id="news">
+	{{> navigation active="news"}}
+	<header>
+		<h1>{{title}}</h1>
+	</header>	
+	<main class="create">
+		<form method="post">
+			<label>Header</label>
+			<input name="contentHeader" type="text"  value="{{data.contentHeader}}" required>
+			
+			<label>Content</label>
+			<textarea name="contentMarkdown">{{data.contentMarkdown}}</textarea>
+
+			<label>Email address</label>
+			<input name="emailAddress" type="text" value="{{data.emailAddress}}" required>
+
+			<label>soundcloud link</label>
+			<input name="soundcloudUrl" type="text" value="{{data.soundcloudUrl}}">
+
+			<label>facebook link</label>
+			<input name="facebookUrl" type="text" value="{{data.facebookUrl}}">
+
+			<label>Instagram link</label>
+			<input name="instagramUrl" type="text" value="{{data.instagramUrl}}">
+
+			<label>Distribution text</label>
+			<input name="distributionText" type="text" value="{{data.distributionText}}">
+
+			<label>Distribution</label>
+			<input name="distributionUrl" type="text" value="{{data.distributionUrl}}">
+
+			<br>
+			<button type="submit">Post</button>
+		</form>
+	</main>
+</div>

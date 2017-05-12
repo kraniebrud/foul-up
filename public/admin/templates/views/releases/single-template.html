@@ -1,0 +1,173 @@
+<div id="releases">
+	{{> navigation active="releases"}}
+	<header>
+		<h1>{{title}}</h1>
+	</header>	
+	<main class="create">
+		<form method="post" onsubmit="postRelease(event, this, '{{data.id}}')">
+
+			<label>Artist</label>
+			<input name="artist" type="text" value="{{data.artist}}" required>
+
+			<label>Title</label>
+			<input name="title" type="text" value="{{data.title}}" required>
+
+			<label>Release date</label>
+			<input name="releaseDate" type="text" value="{{data.releaseDate}}" required>
+
+			<label>Format</label>
+			<input name="releaseFormat" type="text" value="{{data.releaseFormat}}" required>
+
+			<label>Catalog number</label>
+			<input name="catalogNumber" type="text" value="{{data.catalogNumber}}" required>
+
+			<label onclick="modalOpen('chooseImage')">
+				Image(s) <small class="chooseImageCount"></small>
+			</label>
+
+			<button type="button" onclick="modalOpen('chooseImage')">Choose from uploads</button>
+			<div class="modal" data-modal="chooseImage">
+				<div class="modal-wrapper" onclick="modalClose(event)">
+					<div class="modal-inner chooseImage">
+						{{#each images}}
+							<div class="image" title="{{this.fileName}}" onclick="checkImage(event)">
+								<input 
+									type="checkbox"
+									name="images" 
+									value="{{this._id}}"
+									{{{checked this.isInPost}}}
+								>
+								<p class="title"><small>{{this.fileName}}</small></p>
+								<img src="/uploads/images/thumbnail/{{this.fileName}}">
+							</div>
+						{{/each}}
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+
+			<label>Press</label>
+			<textarea name="contentMarkdown">{{data.contentMarkdown}}</textarea>
+
+			<div class="form-category">
+				<p class="form-category-name">Soundcloud</p>
+				<label>Soundcloud link</label>
+				<small>
+					If the soundcloud player fails, the link inserted beneath 
+					might lead the visitors to the direct soundcloud-www instead
+					... a safetybelt so to speak
+				</small>
+				<input name="soundcloud-linkUrl" type="text" value="{{data.soundcloud.linkUrl}}" required>
+				<!--
+					Not important at the moment 
+					<label>Soundcloud link text</label>
+					<input name="soundcloud-linkText" type="text" value="{{data.soundcloud.linkText}}" required>
+				-->
+				<label>Soundcloud embed url</label>
+				<input name="soundcloud-embedSongCode" type="text" value="{{data.soundcloud.embedSongCode}}" required>
+
+				<label>Soundcloud embed text</label>
+				<input name="soundcloud-embedSongText" type="text" value="{{data.soundcloud.embedSongText}}" required>
+			</div>
+
+			<div class="form-category">
+				<p class="form-category-name">Buy</p>
+				<div class="buy">
+					<label>Buy text</label>
+					<input name="buyText" type="text" value="{{data.buy.[0].buyText}}">
+					<label>Buy link</label>	
+					<input name="buyUrl" type="text" value="{{data.buy.[0].buyUrl}}">
+				
+					<button type="button" class="action add-buy" onclick="addBuy()">+ Add more</button>
+					<button type="button" class="action remove-buy" onclick="removeBuy(event, this)">Remove buy</button>
+				
+				</div>
+				<div class="more-buy">
+					<!-- index 0 will not render since 0 == falsy -->
+					{{#each data.buy}}
+						{{#if @index}}
+							<div class="buy">
+								<label>Buy text</label>
+								<input name="buyText" type="text" value="{{this.buyText}}">
+								<label>Buy link</label>	
+								<input name="buyUrl" type="text" value="{{this.buyUrl}}">
+								<button type="button" class="action add-buy" onclick="addBuy()">+ Add more</button>
+								<button type="button" class="action remove-buy" onclick="removeBuy(event, this)">Remove buy</button>
+							</div>
+						{{/if}}
+					{{/each}}
+				</div>
+			</div>
+			<br>
+			<button type="submit">Post</button>
+		</form>
+	</main>
+</div>
+<script type="text/javascript">
+
+	function postRelease (e, formElems, releaseId) {
+		e.preventDefault()
+		
+		var postData = {
+			artist: null,
+			title: null,
+			releaseDate: null,
+			releaseFormat: null,
+			catalogNumber: null,
+			contentMarkdown: null,
+			images: [],
+			soundcloud: {},
+			buy: []
+		}
+
+		var dataItems = formElems.querySelectorAll(['input', 'textarea'])
+		for (var item of dataItems) {
+			if(postData[item.name] === null) {
+				postData[item.name] = item.value
+			}
+			else {
+				//push images to postdata images arr
+				if(item.name === 'images' && item.checked) postData.images.push(item.value)
+				//that would be input name starting of with soundcloudXx
+				if(item.name.indexOf('soundcloud') === 0){
+					//soundcloud inputs will prefix with '-'
+					var scPrefix = 'soundcloud-'
+					postData.soundcloud[item.name.substring(scPrefix.length)] = item.value
+				}
+			}
+		}
+
+		var allBuyItems = formElems.querySelectorAll('.buy')
+		for(var bItems of  allBuyItems){
+			var buyObj = {}
+			var bInputs = bItems.querySelectorAll('input')
+			for(var bInput of  bInputs){
+				buyObj[bInput.name] = bInput.value
+			}
+			postData.buy.push(buyObj)
+		}
+
+		var toEndpoint = releaseId  ? releaseId : 'create'
+		//slug for update, create for well .. create
+		superagent
+		.post('/releases/'+toEndpoint)
+		.send(postData)
+		.set('Accept', 'application/json')
+		.end(function(err, res){
+			if(err) console.error(err)
+		})
+	}
+
+	function addBuy(){
+		var clone = document.querySelector('.buy').cloneNode(true)
+		//empty values for cloned inputs
+		for (var cInput of  clone.querySelectorAll('input')) cInput.value = ''
+		document.querySelector('.more-buy').appendChild(clone)
+	}
+
+	function removeBuy(e, elem){
+		var buyElem = elem.parentElement
+		buyElem.remove()
+	}
+
+</script>

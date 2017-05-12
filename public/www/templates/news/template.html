@@ -1,0 +1,92 @@
+<main id="main" class="news">
+	{{#if posts}}
+
+		{{#each posts}}
+		<article>
+			<header>
+				<h1>{{title}}</h1>
+			</header>
+			<div class="content">
+				<figure class="image">
+					<a href="/uploads/images/original/{{images.[0].fileName}}" target="_blank">
+						<img 
+							src="/uploads/images/resized/{{images.[0].fileName}}"
+							title="{{images.[0].title}}" 
+							alt="{{images.[0].title}}" 
+						>
+					</a>
+				</figure>
+				<div class="md-content">
+					{{{contentHtml}}}
+				</div>
+			</div>
+			<aside class="notes md-content">
+				<div class="md-content">
+					{{{notesHtml}}}
+				</div>
+				{{#if images.length}}
+					<div class="notes-images">
+						<p><strong>Images</strong></p>
+						<figure class="images">
+							{{#each images}}
+								{{#if @index}}
+									<a href="/uploads/images/original/{{fileName}}" target="_blank">
+										<img 
+											src="/uploads/images/thumbnail/{{fileName}}"
+											title="{{title}}" 
+											alt="{{title}}" 
+										>
+									</a>
+								{{/if}}
+							{{/each}}
+						</figure>
+					</div>
+				{{/if}}
+
+				<div class="permalink">
+					<p><strong>Permalink</strong></p>
+					<a 
+						href="/news/article/{{slug}}"
+						title="{{title}}"
+						alt="{{title}}" 
+					>
+						http://foul-up.net/news/article/{{slug}}
+					</a>
+				</div>
+
+			</aside>
+		</article>
+		<br>
+
+		{{/each}}
+
+		{{else}}
+		<!-- responded with 404 status -->
+		<p class="sorry">
+			You've hit the wrong spot, try one of the pages at the bottom
+		</p>
+
+
+	{{/if}}
+
+	<ul class="pagination">
+		{{#if pagination.previous}}
+		<li class="previous">
+			<a href="/news/page/{{pagination.previous}}">Previous</a>
+		</li>
+		{{/if}}
+
+		{{#each pagination.pages}}
+			<li {{#if active}}class="active"{{/if}}>
+				<a href="/news/page/{{page}}">{{page}}</a>
+			</li>
+		{{/each}}
+
+		{{#if pagination.next}}
+		<li class="next">	
+				<a href="/news/page/{{pagination.next}}">Next</a>
+		</li>
+		{{/if}}
+	</ul>
+
+</main>

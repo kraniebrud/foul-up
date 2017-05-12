@@ -1,0 +1,14 @@
+<div id="media">
+	{{> navigation active="images"}}
+	<header>
+		<h1>Media,</h1>
+	</header>
+	<main class="list">
+		{{#each data.images}}
+			<div class="image entry">
+				<img src="/uploads/images/thumbnail/{{this.fileName}}">
+			</div>
+		{{/each}}
+		<div class="clear"></div>
+	</main>
+</div>

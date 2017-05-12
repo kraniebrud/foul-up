@@ -1,0 +1,19 @@
+<main id="main" class="releases">
+	{{#each posts}}
+	<article>
+		<a href="/releases/{{slug}}">
+			<img 
+				src="	/uploads/images/resized/{{images.[0].fileName}}" 
+				alt="{{artist}} - {{title}}" 
+				title="{{artist}} - {{title}}"
+			>
+			<div class="description">
+				<header>
+					<h1>{{artist}}</h1>
+					<h2>{{title}}</h2>
+				</header>
+			</div>
+		</a>
+	</article>
+	{{/each}}
+</main>

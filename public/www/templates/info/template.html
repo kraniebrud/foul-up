@@ -1,0 +1,94 @@
+<main id="main" class="info">
+	<article>
+		<h1>{{data.contentHeader}}</h1>
+		<div class="content md-content">
+			{{{data.contentHtml}}}
+		</div>
+		<aside class="notes">
+			<h2>Social</h2>
+			<ul class="social">
+					<li>
+						<a
+							alt="FOUL-UP, Soundcloud" 
+							title="FOUL-UP, Soundcloud" 
+							href="{{data.souncloudUrl}}" 
+							target="_blank"
+						>
+							<img src="/assets/images/soundcloud-logo.svg">
+							<span>Soundcloud</span>
+						</a>
+					</li>
+					<li>
+						<a
+							alt="FOUL-UP, Facebook" 
+							title="FOUL-UP, Facebook" 
+							href="{{data.facebookUrl}}" 
+							target="_blank"
+						>
+							<img src="/assets/images/facebook-logo.svg">
+							<span>Facebook</span>
+						</a>
+					</li>
+					<li>
+						<a 
+							alt="FOUL-UP, Instagram"
+							title="FOUL-UP, Instagram"
+							href="{{data.instagramUrl}}" 
+							target="_blank"
+						>
+							<img src="/assets/images/instagram-logo.svg">
+							<span>Instagram</span>
+						</a>
+					</li>
+			</ul>
+			<br>
+
+			<h2>Contact</h2>
+			<ul>
+				<li><a href="mailto: {{data.emailAddress}}">{{data.emailAddress}}</a></li>
+			</ul>
+			<br>
+			
+			<h2>Newsletter</h2>
+			<ul>
+				<li>
+					<a 
+						href=""
+						type="button" 
+						class="toggle-form" 
+						onClick="showModal(event)"
+					>
+						Signup
+					</a>
+					<div id="signup-modal">
+						<div class="modal-inner">
+							<div id="signup-body">
+								<h4>Newsletter</h4>
+								<br>
+								<form 
+									method="post" 
+									onSubmit="signupSubmit(event)"
+									target="_blank"
+									action="http://foul-up.us14.list-manage.com/subscribe/post?u=7280b8a7257131a2c4116001d&amp;id=3e2d19f16b"
+								>
+									<div class="form-data">
+										<input type="text" name="FNAME" value="" placeholder="First name">
+										<input type="text" name="LNAME" value="" placeholder="Last name">
+										<input type="email" name="EMAIL" value="" placeholder="Email">
+										<button type="submit">Subscribe</button>
+									</div>
+								</form>
+								<p class="output"></p>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<br>
+			<h2>Distribution</h2>
+			<ul>
+				<li><a href="{{data.distributionUrl}}" target="_blank">{{data.distributionText}}</a></li>
+			</ul>
+		</aside>
+	</article>
+</main>

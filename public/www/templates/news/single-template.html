@@ -1,0 +1,44 @@
+<main id="main" class="news">
+	<article>
+		<header>
+			<h1>{{post.title}}</a></h1>
+		</header>
+		<div class="content">
+			<figure class="image">
+				<a href="/uploads/images/original/{{post.images.[0].fileName}}" target="_blank">
+					<img 
+						src="/uploads/images/resized/{{post.images.[0].fileName}}"
+						title="{{post.images.[0].title}}" 
+						alt="{{post.images.[0].title}}" 
+					>
+				</a>
+			</figure>
+			<div class="md-content">
+				{{{post.contentHtml}}}
+			</div>
+		</div>
+		<aside class="notes">
+			<div class="md-content">
+				{{{post.notesHtml}}}
+			</div>
+			{{#if post.images.length}}
+				<div class="notes-images">
+					<p><strong>Images</strong></p>
+					<figure class="images">
+						{{#each post.images}}
+							{{#if @index}}
+								<a href="/uploads/images/original/{{this.fileName}}" target="_blank">
+									<img 
+										src="/uploads/images/thumbnail/{{this.fileName}}"
+										title="{{this.title}}" 
+										alt="{{this.title}}" 
+									>
+								</a>
+							{{/if}}
+						{{/each}}
+					</figure>
+				</div>
+			{{/if}}
+		</aside>
+	</article>
+</main>
