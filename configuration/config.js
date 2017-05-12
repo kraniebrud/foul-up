@@ -1,8 +1,13 @@
-const _config = require('./_config')
+const _config = require('./setup.config')
 
-module.exports = {
-	db: {
-		uri: _config.db.uri,
-		options: _config.db.options
-	}
-}
+const config = Object.assign(
+	{
+		db: {
+			uri: 'mongodb://localhost:27000/mycoolapp',
+			options: {}
+		}
+	},
+	_config
+)
+
+module.exports = config

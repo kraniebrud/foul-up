@@ -1,6 +1,6 @@
 node_modules
 npm-debug.log
-configuration/*_
+configuration/setup.*
 logs/*.log
 
 public/uploads/images/original/*

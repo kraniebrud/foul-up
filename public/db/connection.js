@@ -1,6 +1,8 @@
 'USER STRICT'
 
+const connection = require(__base+'/../configuration/config').db
+
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/foul_up', {})
+mongoose.connect(connection.uri, connection.options)
 
 mongoose.Promise = require('bluebird')
