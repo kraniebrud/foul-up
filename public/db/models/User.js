@@ -1,7 +1,10 @@
+'USE STRICT'
+
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 
-const UserSchema = new mongoose.Schema('User', {
+//validate: new RegExp('^(?=.{6,})(?=.*[A-z])'), //must be atleast 6 characters and contain atleast one letter
+const UserSchema = new mongoose.Schema({
 	username: {
 		type: String, 
 		required: true,
@@ -9,7 +12,7 @@ const UserSchema = new mongoose.Schema('User', {
 	},
 	password: {
 		type: String, 
-		validate: new RegExp('^(?=.{6,})(?=.*[A-z])'), //must be atleast 6 characters and contain atleast one letter
+
 		required: true
 	},
 	isTemporaryPassword: {
@@ -18,13 +21,15 @@ const UserSchema = new mongoose.Schema('User', {
 	}
 })
 
-UserSchema.pre(save, function(next) {
-
+//make the password a hashed one before saving ... 
+UserSchema.pre('save', function(next) { 
+	const user = this
+	if (!user.isModified('password')) return next()
+	bcrypt.hash(user.password, 10, (err, hashedPwd) => {
+		if(err) return next(err)
+		user.password = hashedPwd
+		next()
+	})
 })
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-
-}
-
-
-console.log(UserSchema)
+module.exports = mongoose.model('User', UserSchema)
