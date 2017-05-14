@@ -43,11 +43,11 @@ server.register([
 )
 
 server.auth.strategy(
-	'session', 'cookie', 
+	'session', 'cookie',  
 	{
-		password: bcrypt.genSaltSync(),
-		cookie: 'sid',
-		isSecure: true,
+		password: bcrypt.genSaltSync()+'sid',
+		cookie: 'foul-up-cookie',
+		isSecure: false, //non-http
 		redirectTo: '/login',
 		redirectOnTry: false
 	}
