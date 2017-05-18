@@ -4,15 +4,17 @@
 			<h1>{{post.title}}</a></h1>
 		</header>
 		<div class="content">
-			<figure class="image">
-				<a href="/uploads/images/original/{{post.images.[0].fileName}}" target="_blank">
-					<img 
-						src="/uploads/images/resized/{{post.images.[0].fileName}}"
-						title="{{post.images.[0].title}}" 
-						alt="{{post.images.[0].title}}" 
-					>
-				</a>
-			</figure>
+			{{#if post.images.length}}
+				<figure class="image">
+					<a href="/uploads/images/original/{{post.images.[0].fileName}}" target="_blank">
+						<img 
+							src="/uploads/images/resized/{{post.images.[0].fileName}}"
+							title="{{post.images.[0].title}}" 
+							alt="{{post.images.[0].title}}" 
+						>
+					</a>
+				</figure>
+			{{/if}}
 			<div class="md-content">
 				{{{post.contentHtml}}}
 			</div>

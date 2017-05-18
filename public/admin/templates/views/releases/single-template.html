@@ -21,30 +21,7 @@
 			<label>Catalog number</label>
 			<input name="catalogNumber" type="text" value="{{data.catalogNumber}}" required>
 
-			<label onclick="modalOpen('chooseImage')">
-				Image(s) <small class="chooseImageCount"></small>
-			</label>
-
-			<button type="button" onclick="modalOpen('chooseImage')">Choose from uploads</button>
-			<div class="modal" data-modal="chooseImage">
-				<div class="modal-wrapper" onclick="modalClose(event)">
-					<div class="modal-inner chooseImage">
-						{{#each images}}
-							<div class="image" title="{{this.fileName}}" onclick="checkImage(event)">
-								<input 
-									type="checkbox"
-									name="images" 
-									value="{{this._id}}"
-									{{{checked this.isInPost}}}
-								>
-								<p class="title"><small>{{this.fileName}}</small></p>
-								<img src="/uploads/images/thumbnail/{{this.fileName}}">
-							</div>
-						{{/each}}
-						<div class="clear"></div>
-					</div>
-				</div>
-			</div>
+			{{> imagePicker data}}
 
 			<label>Press</label>
 			<textarea name="contentMarkdown">{{data.contentMarkdown}}</textarea>
@@ -154,7 +131,11 @@
 		.send(postData)
 		.set('Accept', 'application/json')
 		.end(function(err, res){
-			if(err) console.error(err)
+			if(err) {
+				console.log(err)
+				return
+			}
+			window.location.pathname = '/releases'
 		})
 	}
 

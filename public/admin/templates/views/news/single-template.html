@@ -8,31 +8,8 @@
 
 			<label>Title</label>
 			<input name="title" type="text" value="{{data.title}}" required>
-
-			<label onclick="modalOpen('chooseImage')">
-				Image(s) <small class="chooseImageCount"></small>
-			</label>
 			
-			<button type="button" onclick="modalOpen('chooseImage')">Choose from uploads</button>
-			<div class="modal" data-modal="chooseImage">
-				<div class="modal-wrapper" onclick="modalClose(event)">
-					<div class="modal-inner chooseImage">
-						{{#each images}}
-							<div class="image" title="{{this.fileName}}" onclick="checkImage(event)">
-								<input 
-									type="checkbox"
-									name="images" 
-									value="{{this._id}}"
-									{{{checked this.isInPost}}}
-								>
-								<p class="title"><small>{{this.fileName}}</small></p>
-								<img src="/uploads/images/thumbnail/{{this.fileName}}">
-							</div>
-						{{/each}}
-						<div class="clear"></div>
-					</div>
-				</div>
-			</div>
+			{{> imagePicker data}}
 
 			<label>Content</label>
 			<textarea name="contentMarkdown">{{data.contentMarkdown}}</textarea>

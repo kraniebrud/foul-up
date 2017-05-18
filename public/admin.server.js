@@ -42,14 +42,15 @@ server.register([
 	}
 )
 
+const cookie = require(__base+'/../configuration/config').cookie
 server.auth.strategy(
-	'session', 'cookie',  
+	'session', 'cookie', 'required', //required on routes by default 
 	{
-		password: bcrypt.genSaltSync()+'sid',
-		cookie: 'foul-up-cookie',
-		isSecure: false, //non-http
+		cookie: cookie.cookie,
+		password: cookie.password,
 		redirectTo: '/login',
-		redirectOnTry: false
+		ttl: cookie.ttl, //3days in msec
+		isSecure: false, //non-http
 	}
 )
 
@@ -57,6 +58,9 @@ server.auth.strategy(
 server.route({
 	method: 'GET',
 	path: '/assets/{filename*}',
+	config: {
+		auth: false
+	},
 	handler: {
 		directory: {
 			path: path.join(__dirname, './admin/static/'),

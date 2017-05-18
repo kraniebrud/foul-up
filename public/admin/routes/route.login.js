@@ -8,7 +8,13 @@ const shortid = require('shortid')
 server.route({
 	method: ['GET', 'POST'], 
 	path: '/login',
+	config: {
+		auth: false
+	},
 	handler: function(request, reply){
+
+		request.cookieAuth.clear()
+
 		const payload = request.payload ? request.payload : null
 
 		if(!payload) {

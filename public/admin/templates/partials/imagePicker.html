@@ -1,0 +1,76 @@
+<label onclick="modalOpen('chooseImage')">
+	Image(s) <small class="chooseImageCount"></small>
+</label>
+
+<button type="button" onclick="modalOpen('chooseImage')">Choose from uploads</button>
+<div class="modal" data-modal="chooseImage">
+	<div class="modal-wrapper" onclick="modalClose(event)">
+		<div class="modal-inner chooseImage">
+			<div class="selectedImages">
+				{{#each images}}
+					<input 
+						type="checkbox"
+						name="images" 
+						value="{{this._id}}"
+					>
+				{{/each}}
+			</div>
+			{{#each allImages}}
+				<div 
+					id="image{{this._id}}"
+					class="image" 
+					title="{{this.fileName}}" 
+					onclick="checkImage(event, '{{this._id}}')"
+				>
+					<span class="imageOrder"><!-- filled by js --></span>
+					<p class="title"><small>{{this.fileName}}</small></p>
+					<img src="/uploads/images/thumbnail/{{this.fileName}}">
+				</div>
+			{{/each}}
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<script>
+
+	var countCheckedImages = function(){
+		var chooseImageElem = document.querySelector('.chooseImage')
+		if(!chooseImageElem) return
+		var inputElems = chooseImageElem.getElementsByTagName('input')
+
+		var allImages = chooseImageElem.querySelectorAll('.image')
+		for(var image of allImages) image.className = 'image'
+
+		var count = 0
+		for(var inputElem of inputElems) {
+			inputElem.setAttribute('checked', true)
+			
+			count ++
+			var imageElem = chooseImageElem.querySelector('#image'+inputElem.value)
+			imageElem.className = 'image checked'
+			imageElem.querySelector('.imageOrder').innerText = count
+		}
+
+		var countText = count > 0 ? 'choosen images: '+count : ''
+		document.querySelector('.chooseImageCount').innerText = countText
+	}
+
+	var checkImage = function(e, _id){
+		var imagesModalElem = e.target.parentNode
+		var selectedImagesElem = 	imagesModalElem.querySelector('.selectedImages')
+		var selectedImages = selectedImagesElem.querySelectorAll('input')
+		var checkedImageInput = selectedImagesElem.querySelector('input[value="'+_id+'"]')
+		if(checkedImageInput) {
+			checkedImageInput.remove()
+		}
+		else {
+			var input = document.createElement("input")
+			input.setAttribute('name', 'images')
+			input.setAttribute('type', 'checkbox')
+			input.setAttribute('value', _id)
+			selectedImagesElem.appendChild(input)
+		}
+		countCheckedImages()
+	}
+	countCheckedImages()
+</script>

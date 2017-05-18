@@ -12,7 +12,11 @@ server.route({
 		auth: {strategy : 'session'},
 	},
 	handler: ((request, reply) => {
-		ImageFile.find({}).sort({_id: -1}).exec((err, images) => {
+		ImageFile
+		.find({})
+		.sort({_id: -1})
+		.exec((err, images) => {
+			if(request.likesJson())  return reply(images)
 			reply.view('images/template', {
 				title: "Images",
 				data: {images}
@@ -62,30 +66,42 @@ server.route({
 			data.image.pipe(fs.createWriteStream(originalFile))
 
 			data.image.on('end',()=>{
-				easyimage.resize({
+				
+				return easyimage.resize({
 					src: originalFile, 
 					dst: uploadBase+'/resized/'+sluggedFileName,
-					quality: 85,
+					quality: 90,
 					width: 1000
 				})
-				easyimage.resize({
-					src: originalFile, 
-					dst: uploadBase+'/thumbnail/'+sluggedFileName,
-					quality: 85,
-					width: 175
+
+				.then( file => {
+					return easyimage.resize({
+						src: originalFile, 
+						dst: uploadBase+'/thumbnail/'+sluggedFileName,
+						quality: 90,
+						width: 175
+					})
 				})
-				
-				new ImageFile({fileName: sluggedFileName}).save(() => {
-					ImageFile.find({}).sort({_id: -1}).exec((err, images) => {
-						reply.view('images/upload-template', {
-							data: {images},
-							toast: {
-								type: 'SUCCESS', 
-								message: sluggedFileName+' was uploaded'
-							}
+
+				.then( file => {
+					new ImageFile({fileName: sluggedFileName}).save(() => {
+						ImageFile.find({}).sort({_id: -1}).exec((err, images) => {
+							reply.view('images/upload-template', {
+								data: {images},
+								toast: {
+									type: 'SUCCESS', 
+									message: sluggedFileName+' was uploaded'
+								}
+							})
 						})
 					})
 				})
+
+				.catch( err => {
+					console.log(err)
+					reply(err).code(500)
+				})
+
 			})
 		}
 	})

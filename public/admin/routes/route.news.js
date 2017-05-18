@@ -32,23 +32,22 @@ server.route({
 	path: '/news/{postId}',
 	handler: ((request, reply) => {
 		const postId = request.params.postId
-		News.findOne({_id: postId}).exec()
+		
+		News
+			.findOne({_id: postId})
+			.populate('images')
+			.exec()
+		
 		.then(postData => {
 			if(!postData) return reply(Boom.notFound())
 			
 			ImageFile.find({})
+			
 			.then(images => {
-				const postImages = []
-				images.forEach(function(img){
-					const imgObj = img.toObject()
-					postImages.push(imgObj)
-					if(!postData.images) return
-					imgObj.isInPost = postData.images.indexOf(img._id) !== -1
-				})
+				postData.allImages = images
 				reply.view('news/single-template', {
 					title: "News, Update",
-					data: postData,
-					images: postImages
+					data: postData
 				})
 			})
 

@@ -1,21 +1,22 @@
 <main id="main" class="news">
 	{{#if posts}}
-
 		{{#each posts}}
 		<article>
 			<header>
 				<h1>{{title}}</h1>
 			</header>
 			<div class="content">
-				<figure class="image">
-					<a href="/uploads/images/original/{{images.[0].fileName}}" target="_blank">
-						<img 
-							src="/uploads/images/resized/{{images.[0].fileName}}"
-							title="{{images.[0].title}}" 
-							alt="{{images.[0].title}}" 
-						>
-					</a>
-				</figure>
+				{{#if images.length}}
+					<figure class="image">
+						<a href="/uploads/images/original/{{images.[0].fileName}}" target="_blank">
+							<img 
+								src="/uploads/images/resized/{{images.[0].fileName}}"
+								title="{{images.[0].title}}" 
+								alt="{{images.[0].title}}" 
+							>
+						</a>
+					</figure>
+				{{/if}}
 				<div class="md-content">
 					{{{contentHtml}}}
 				</div>
@@ -29,15 +30,13 @@
 						<p><strong>Images</strong></p>
 						<figure class="images">
 							{{#each images}}
-								{{#if @index}}
-									<a href="/uploads/images/original/{{fileName}}" target="_blank">
-										<img 
-											src="/uploads/images/thumbnail/{{fileName}}"
-											title="{{title}}" 
-											alt="{{title}}" 
-										>
-									</a>
-								{{/if}}
+								<a href="/uploads/images/original/{{fileName}}" target="_blank">
+									<img 
+										src="/uploads/images/thumbnail/{{fileName}}"
+										title="{{title}}" 
+										alt="{{title}}" 
+									>
+								</a>
 							{{/each}}
 						</figure>
 					</div>

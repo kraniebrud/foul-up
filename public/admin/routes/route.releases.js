@@ -33,24 +33,21 @@ server.route({
 
 		handler: ((request, reply) => {
 			
-			Release.findOne({slug: request.params.slug}).exec()
+			Release
+				.findOne({slug: request.params.slug})
+				.populate('images')
+				.exec()
+			
 			.then(postData => {
 				if(!postData) return reply(Boom.notFound())
 				
 				ImageFile.find({})
 				.then(images => {
-					const postImages = []
-					images.forEach(function(img){
-						const imgObj = img.toObject()
-						postImages.push(imgObj)
-						if(!postData.images) return
-						imgObj.isInPost = postData.images.indexOf(img._id) !== -1
-					})
 
+					postData.allImages = images
 					const replyData = {
 						title: "Releases, Update",
-						data: postData,
-						images: postImages
+						data: postData
 					}
 
 					if(request.likesJson())  return reply(replyData)

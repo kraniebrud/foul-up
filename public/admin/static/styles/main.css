@@ -208,9 +208,17 @@ main header {
 	margin: .33% 0 0 .33%;
 	padding: .5rem;
 	text-align: center;
+	overflow: hidden;
+}
+#main.media .list .vertical-helper {
+	height: 240px;
+	vertical-align: middle;
+	display: inline-block;
 }
 #main.media .list .image img {
+	vertical-align: middle;
 	max-width: 229px;
+	height: 170px;
 }
 #main.media .upload-area {
 	position: relative;
@@ -255,7 +263,7 @@ main header {
 }
 
 #toast {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	right: 0;
 	margin: 1rem;
@@ -295,6 +303,9 @@ main header {
 .modal.open .modal-wrapper{
 	display: block;
 }
+.modal .chooseImage .selectedImages input{
+	display: none;
+}
 .modal .chooseImage .image {
 	position: relative;
 	text-align: center;
@@ -306,6 +317,19 @@ main header {
 }
 .modal .chooseImage .image img {
 	height: 80px;
+}
+.modal .chooseImage .image .imageOrder {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background: blue;
+	color: #FFF;
+	width: 15px;
+	padding: 3px;
+}
+.modal .chooseImage .image.checked .imageOrder {
+	display: block;
 }
 .modal .chooseImage .image:before {
 	box-sizing: border-box;
