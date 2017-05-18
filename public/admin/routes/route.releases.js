@@ -10,8 +10,6 @@ const Boom = require('boom')
 const ImageFile = require(__base+'/db/models/ImageFile')
 const Release = require(__base+'/db/models/Release')
 
-const mongoose = require('mongoose')
-
 server.route({
 	method: ['GET'], 
 	path: '/releases',

@@ -6,6 +6,7 @@ const generatedPassword = require('shortid').generate()
 
 const adminUser = {
 	username: 'admin',
+	role: 'admin',
 	password:  bcrypt.hashSync(generatedPassword, 10) 
 }
 
@@ -15,6 +16,7 @@ return  User.findOneAndUpdate({username: 'admin'}, adminUser)
 	if(foundAdminUser) {
 		console.log('Admin password updated...')
 		console.log('username:', adminUser.username)
+		console.log('role:', adminUser.role)
 		console.log('password:', generatedPassword)
 		return process.exit(0)
 	}
@@ -25,6 +27,7 @@ return  User.findOneAndUpdate({username: 'admin'}, adminUser)
 .then( res => {
 	console.log('Admin created...')
 	console.log('username:', adminUser.username)
+	console.log('role:', adminUser.role)
 	console.log('password:', generatedPassword)
 	return process.exit(0)
 })

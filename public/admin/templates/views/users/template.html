@@ -1,0 +1,29 @@
+<div id="releases">
+	{{> navigation active="users"}}
+	<header>
+		<h1>Users</h1>
+	</header>
+	<main class="list">
+		{{#each users}}
+			<div class="entry">
+				<h3>
+					Username: {{this.username}}
+					<br>
+					<small>Role: {{this.role}}</small>
+				</h3>
+				{{#ifCond ../authenticated.role '===' 'admin'}}
+					<form method="post">
+						<label>Password</label>
+						<input type="hidden" name="_id" value="{{../_id}}">
+						<input type="password" name="password">
+						<button type="submit">Change Password</button>
+					</form>
+				
+					{{else}}
+						<small>Cant change password unless role is admin</small>
+				
+				{{/ifCond}}
+			</div>
+		{{/each}}
+	</main>
+</div>

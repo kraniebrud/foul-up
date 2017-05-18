@@ -24,17 +24,19 @@ server.route({
 			.code(401)
 		}
 
+		let authenticatedUser
+
 		User.findOne({username: payload.username})
-		
 		.then( foundUser => {
+			authenticatedUser = foundUser
 			if(!foundUser) throw Boom.unauthorized()
 			return bcrypt.compare(payload.password, foundUser.password)
 		})
 
 		.then( passwordMatch => {
 			if(!passwordMatch) throw Boom.unauthorized()
-			request.cookieAuth.set({username: payload.username})
-			reply().redirect('/images')	
+			request.cookieAuth.set(authenticatedUser)
+			reply().redirect('/news')	
 		})
 
 		.catch( err => {
