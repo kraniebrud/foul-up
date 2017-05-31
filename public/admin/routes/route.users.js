@@ -50,3 +50,16 @@ server.route({
 		})
 	})
 })
+
+server.route({
+	method: ['GET'], 
+	path: '/users/create',
+	handler: ((request, reply) => {
+		const authenticatedUser = request.auth.credentials
+		console.log(authenticatedUser)
+		reply.view('users/create', {
+			title: 'Users, New user',
+			authenticated: authenticatedUser
+		})
+	})
+})

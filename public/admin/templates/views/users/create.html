@@ -1,0 +1,19 @@
+<div id="releases">
+	{{> navigation active="users"}}
+	<header>
+		<h1>Users, New user</h1>
+	</header>
+	<main class="list">
+		{{#ifCond authenticated.role '===' 'admin'}}
+			<form>
+				<label>Username</label>
+				<input type="username" name="username">
+				<label>Password</label>
+				<input type="password" name="password">
+				<button type="submit">Create new user</button>
+			</form>
+			{{else}}
+			<h4>Only administrators can create new users :(</h4>
+		{{/ifCond}}
+	</main>
+</div>
