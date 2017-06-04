@@ -5,11 +5,23 @@
 	</header>
 	<main class="list">
 		{{#ifCond authenticated.role '===' 'admin'}}
-			<form>
+			<form method="post">
+				<label>Role</label>
+				<p>
+					<small>
+						Role 'User' can't create new users or update other users passwords. <br>
+						But role admin can.
+					</small>
+				</p>
+				<select name="role" required>
+					<option value="admin">Admin</option>
+					<option value="user">User</option>
+				</select>
+
 				<label>Username</label>
-				<input type="username" name="username">
+				<input type="username" name="username" required>
 				<label>Password</label>
-				<input type="password" name="password">
+				<input type="password" name="password" required>
 				<button type="submit">Create new user</button>
 			</form>
 			{{else}}

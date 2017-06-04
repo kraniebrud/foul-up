@@ -56,10 +56,44 @@ server.route({
 	path: '/users/create',
 	handler: ((request, reply) => {
 		const authenticatedUser = request.auth.credentials
-		console.log(authenticatedUser)
+
+		if(authenticatedUser.role !== 'admin'){
+			toasting.setMessage('Role admin required', 'FAILED')
+			return reply().redirect('/users')
+		}
+
 		reply.view('users/create', {
 			title: 'Users, New user',
 			authenticated: authenticatedUser
 		})
+	})
+})
+
+
+server.route({
+	method: ['post'], 
+	path: '/users/create',
+	handler: ((request, reply) => {
+		const authenticatedUser = request.auth.credentials
+
+		if(authenticatedUser.role !== 'admin'){
+			toasting.setMessage('Role admin required', 'FAILED')
+			return reply().redirect('/users')
+		}
+
+		const newUser = {
+			username: request.payload.username,
+			password: bcrypt.hashSync(request.payload.password, 10),
+			role: request.payload.role
+		}
+
+		new User(newUser).save()
+		.then(() => {
+			toasting.setMessage('User '+newUser.username+' created')
+			return reply().redirect('/users')
+		})
+
+		.catch(err => reply(Boom.badData(err)))
+
 	})
 })

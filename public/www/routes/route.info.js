@@ -1,5 +1,7 @@
 'USE STRICT'
 
+const Boom = require('boom')
+
 const server = require(__base+'/server')
 
 const Info = require(__base+'/db/models/Info')

@@ -31,7 +31,7 @@ div, form, aside, nav, main {
 	min-height: 450px;
 }
 #menu {
-	top: 0;
+	top: -2rem;
 	left: 0;
 	position: absolute;
 	z-index: 1;
@@ -48,6 +48,7 @@ div, form, aside, nav, main {
 	margin-left: 15px;
 }
 #menu li {
+	margin-bottom: .5rem;
 	display: block;
 }
 main {
@@ -62,7 +63,7 @@ main, header {
 div, nav, main, header, aside {
 	box-sizing: border-box;
 }
-input, textarea, label, button{
+input, textarea, label, button, select{
 	padding: .5rem;
 	display: block;
 	width: 100%;
@@ -83,11 +84,11 @@ label small {
 	color: #666;
 	margin-left: 1.5rem;
 }
-input, textarea, button {
+input, textarea, button, select {
 	border: 1px solid;
 	outline: none;
 }
-input:focus, textarea:focus, button:focus {
+input:focus, textarea:focus, button:focus, select:focus {
 	background: transparent;
 	border: 1px solid blue;
 	color: #000;
