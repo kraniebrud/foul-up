@@ -7,7 +7,7 @@ const path = require('path')
 
 const connection = {
 	host: 'localhost',
-	port: 3100
+	port: 8585
 }
 
 /*
