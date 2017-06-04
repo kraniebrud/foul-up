@@ -20,7 +20,9 @@
     "superagent": "^3.5.2",
     "vision": "^4.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "forever": "^0.15.3"
+  },
   "scripts": {
     "start": "npm run server:public & npm run server:admin & wait",
     "dev": "debug=true npm run dev-admin & npm run dev-public & wait",
