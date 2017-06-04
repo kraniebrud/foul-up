@@ -28,8 +28,8 @@
     "dev": "debug=true npm run dev-admin & npm run dev-public & wait",
     "dev-admin": "forever --watch --watchDirectory ./public/admin ./public/admin.server.js",
     "dev-public": "forever --watch --watchDirectory ./public/www ./public/public.server.js",
-    "server:admin": "forever public/admin.server.js",
-    "server:public": "forever ./public/public.server.js",
+    "server:admin": "forever start ./public/admin.server.js",
+    "server:public": "forever start ./public/public.server.js",
     "scripts": "node ./scripts/index",
     "create:admin": "script=create-admin npm run scripts"
   }
