@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 
 const config = Object.assign(
 	{
-		db: config.connection.db,
+		db: _config.connection.db,
 		cookie: {
 			//Overrides itself on every server start, making currently session cookies invalid. 
 			password: bcrypt.genSaltSync()+'123',
