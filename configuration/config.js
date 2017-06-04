@@ -3,18 +3,12 @@ const bcrypt = require('bcryptjs')
 
 const config = Object.assign(
 	{
-		db: {
-			uri: 'mongodb://localhost:27000/mycoolapp',
-			options: {}
-		},
+		db: config.connection.db,
 		cookie: {
 			//Overrides itself on every server start, making currently session cookies invalid. 
 			password: bcrypt.genSaltSync()+'123',
-			cookie: 'mycoolappcookie',
-			ttl: 259200000, //3days in msec
-			isSecure: false, //non-http
-			redirectTo: '/login',
-			redirectOnTry: false
+			cookie: config.cookie.cookie,
+			ttl: 259200000 //3days in msec
 		}
 	},
 	_config
