@@ -7,7 +7,7 @@ const config = Object.assign(
 		cookie: {
 			//Overrides itself on every server start, making currently session cookies invalid. 
 			password: bcrypt.genSaltSync()+'123',
-			cookie: config.cookie.cookie,
+			cookie: _config.cookie.cookie,
 			ttl: 259200000 //3days in msec
 		}
 	},
