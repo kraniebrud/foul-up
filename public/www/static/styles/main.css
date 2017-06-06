@@ -371,6 +371,14 @@ article header {
 #main.info .social li img {
 	width: 18px;
 }
+
+/*HELP*/
+#main.help {
+	top: -4rem;
+	position: absolute;
+	width: 100%;
+}
+
 /*FRONT*/
 #main.front {
 	text-align: center;

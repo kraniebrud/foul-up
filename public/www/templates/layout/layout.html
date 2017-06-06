@@ -13,25 +13,27 @@
 	<div id="wrapper">
 		<header id="header">
 			<div class="inner">
+				{{#if menu}}
 				<div class="title">
 					<h1>
 						<img src="/assets/images/foul-up-logo--small.png" alt="FOUL-UP" title="FOUL-UP">
 					</h1>
 				</div>
-				<nav id="menu">
-					<ul>
-						<li class="news {{#ifCond menu.active 'news'}}active{{/ifCond}}">
-							<a href="/">News</a>
-						</li>
-						<li class="releases {{#ifCond menu.active 'releases'}}active{{/ifCond}}">
-							<a href="/releases">Releases</a>
-						</li>
-						<li class="info {{#ifCond menu.active 'info'}}active{{/ifCond}}">
-							<a href="/info">Info</a>
-						</li>
-					</ul>
-				</nav>
+					<nav id="menu">
+						<ul>
+							<li class="news {{#ifCond menu.active 'news'}}active{{/ifCond}}">
+								<a href="/">News</a>
+							</li>
+							<li class="releases {{#ifCond menu.active 'releases'}}active{{/ifCond}}">
+								<a href="/releases">Releases</a>
+							</li>
+							<li class="info {{#ifCond menu.active 'info'}}active{{/ifCond}}">
+								<a href="/info">Info</a>
+							</li>
+						</ul>
+					</nav>
 			</div>
+			{{/if}}
 		</header>
 		{{{content}}}
 	<script type="text/javascript" src="/assets/js/foul-up.ui.js"></script>
