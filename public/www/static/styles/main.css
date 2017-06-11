@@ -378,6 +378,24 @@ article header {
 	position: absolute;
 	width: 100%;
 }
+#main.help .help-container {
+	border-bottom: 1px dashed;
+	padding: 1rem 0 2rem;
+}
+#main.help .help-container:last-child {
+	border: none;
+}
+#main.help .help-list > li {
+	padding-left: 1rem; 
+}
+#main.help .example {
+	box-shadow: inset 0 0 4px;
+	cursor: text;
+	padding: .5rem;
+}
+#main.help .example p {
+	margin: .5rem 0;
+}
 
 /*FRONT*/
 #main.front {

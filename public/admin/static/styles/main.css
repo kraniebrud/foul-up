@@ -126,6 +126,22 @@ main header {
 	max-width: 400px;
 }
 
+#help-bar {
+	position: fixed;
+	top: 0;
+	right: 0;
+}
+#help-bar a {
+	display: block;
+	padding: .5rem;
+	opacity: .5;
+	font-size: .7rem;
+}
+#help-bar a:hover {
+	opacity: 1;
+}
+
+
 /*release*/
 
 #releases .buy .remove-buy, #releases .more-buy .buy .add-buy{

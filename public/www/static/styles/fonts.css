@@ -88,10 +88,14 @@ article h2, article h3 {
 	margin: 2.5rem 0;
 }
 
-#main .md-content li {
+#main .md-content ul li {
 	list-style-type: none; 
 }
 
-#main .md-content li:before {
+#main .md-content ul li:before {
 	content: '– ';
+}
+
+#main .md-content ol {
+	margin-left: .95rem;
 }

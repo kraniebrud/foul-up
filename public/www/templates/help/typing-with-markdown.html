@@ -1,36 +1,29 @@
 <main id="main" class="help">
-	<article>
 		<h1>Typing with markdown</h1>
 		<br>
-		<div class="content">
-			{{#each data}}
-			<article>
-				<header>
-					<h3>{{header}}</h3>
-				</header>
-				<ol>
+		{{#each data}}
+		<article class="help-container">
+			<header>
+				<h3>{{header}}</h3>
+			</header>
+			<div class="content">
+				<ol class="help-list">
 				{{#each items}}
 					<li>
-						<p>{{{example}}}</p>
+						<div class="example">
+							<p>{{{example}}}</p>
+						</div>
 						<small>
 							<p><i>{{description}}</i></p>
-							<p><b>Outcome:</b></p>
-							<!-- <div class="md-content">{{{md}}}</div> -->
-							<div class="md-content">{{{markdown md}}}</div>
 							<br>
 						</small>
+						<p><b>Outcome:</b></p>
+						<div class="md-content">{{{markdown md}}}</div>
 					</li>
 				{{/each}}
 				</ol>
-			</article>
-			{{/each}}			
-
-		</div>
-		<aside class="notes">
-			<h3>
-				This page is served as a Teapot
-			</h3>
-			<p>And should therefor not be indexed by search engines</p>
-		</aside>
+			</div>
+		</article>
+		{{/each}}
 	</article>
 </main>

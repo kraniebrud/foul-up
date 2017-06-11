@@ -47,7 +47,7 @@ server.route({
 								+ '<p>Wiggy wiggy</p>'
 								+ '---'
 								+ '<p>Slim shady</p>',
-							description: 'Makes additionally whitespace inorder to seperate content from each other',
+							description: 'Makes additionally whitespace inorder to seperate content from eachother',
 							md: ''
 								//Trouble with this one for some reason, renders ok in article.. promise
 								+ '<p>Wiggy wiggy</p>'
@@ -60,9 +60,9 @@ server.route({
 					header: 'Text in italic',
 					items: [
 						{
-							example: '*This take text is leaned, like your pe... oh nvm*',
+							example: '*This take text is leaning, like your dad at the local pub*',
 							description: 'Makes the text go italic',
-							md: '*This take text is leaned, like your pe... oh nvm*'
+							md: '*This take text is leaning, like your dad at the local pub*'
 						}
 					]
 				},
@@ -81,10 +81,10 @@ server.route({
 					items: [
 						{
 							example: ''
-								+ '- Forever young \n'
-								+ '- I wanna be \n'
-								+ '- Forever young \n',
-							description: 'Make a list of items with &ndash; used as list symbol',
+								+ '- Forever young <br>'
+								+ '- I wanna be <br>'
+								+ '- Forever young <br>',
+							description: 'Makes a list of items with &ndash; used as list symbol',
 							md: ''
 								+ '- Forever young \n'
 								+ '- I wanna be \n'
@@ -97,15 +97,28 @@ server.route({
 					items: [
 						{
 							example: ''
-								+ '- Forever young \n'
-								+ '- I wanna be \n'
-								+ '- Forever young \n',
-							description: 'Make a list of items with &ndash; used as list symbol',
+								+ '1. Forever young <br>'
+								+ '2. I wanna be <br>'
+								+ '3. Forever young <br>',
+							description: 'Makes a list of items in a numbered order',
 							md: ''
 								+ '1. Forever young \n'
 								+ '2. I wanna be \n'
 								+ '3. Forever young \n'
 						}
+					]
+				},
+				{
+					header: 'Soft line-break',
+					items: [
+						{
+							example: ''
+								+ 'I am a ..&lt;br&gt; <br>'
+								+ '.. softy guy.',
+							description: 'Makes a line-break with lesser space',
+							md: ''
+								+ 'I am a .. <br>\n'
+								+ '..softy guy'						}
 					]
 				}
 			]
