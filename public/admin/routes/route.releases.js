@@ -105,9 +105,11 @@ server.route({
 		ImageFile.find({}).sort({_id: -1})
 		.then(images => {
 			reply.view('releases/single-template', {
-				title: 'Releases, Create',
-				images: images
-			})			
+				title: 'Releases, Create', 
+				data: {
+					allImages: images
+				}
+			})	
 		})
 	})
 })

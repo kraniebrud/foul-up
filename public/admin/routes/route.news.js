@@ -86,7 +86,9 @@ server.route({
 		.then(images => {
 			reply.view('news/single-template', {
 				title: 'News, Create',
-				images: images
+				data: {
+					allImages: images
+				}
 			})			
 		})
 	})
