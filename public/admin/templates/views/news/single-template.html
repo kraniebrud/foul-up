@@ -13,8 +13,20 @@
 			{{> imagePicker data}}
 
 			<label>Content</label>
-			<textarea name="contentMarkdown">{{data.contentMarkdown}}</textarea>
-
+			<div class="mde">
+				<div class="mde-toolbar">
+					<button type="button" onclick="md.insert('h1')">
+						H1
+					</button>
+					<button type="button" onclick="md.insert('b')">
+						B
+					</button>
+					<button type="button" onclick="md.insert('u')">
+						<u>U</u>
+					</button>
+				</div>
+				<textarea class="mdEditor" contenteditable="true" name="contentMarkdown">{{data.contentMarkdown}}</textarea>
+			</div>
 			<label>Notes <small>(sidebar)</small></label>
 			<textarea name="notesMarkdown">{{data.notesMarkdown}}</textarea>
 
