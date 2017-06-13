@@ -81,14 +81,14 @@ server.route({
 					items: [
 						{
 							example: ''
-								+ '- Forever young <br>'
-								+ '- I wanna be <br>'
-								+ '- Forever young <br>',
-							description: 'Makes a list of items with &ndash; used as list symbol',
+								+ '* Forever young <br>'
+								+ '* I wanna be <br>'
+								+ '* Forever young <br>',
+							description: 'Makes a list of items with – used as list symbol',
 							md: ''
-								+ '- Forever young \n'
-								+ '- I wanna be \n'
-								+ '- Forever young \n'
+								+ '* Forever young \n'
+								+ '* I wanna be \n'
+								+ '* Forever young \n'
 						}
 					]
 				},
