@@ -1,11 +1,7 @@
-var md = function(){
+var SSMDE = function(){
 
 	function getSelection() {
 		return window.getSelection().toString()
-	}
-
-	function mdH1() {
-
 	}
 
 	function execInsert(text){
@@ -43,6 +39,23 @@ var md = function(){
 		}
 		
 	}
+
+	var editor = function(mde){
+		this.toolbar = mde.createElement('<div>')
+		toolbar.createElement('<h1>').innerText = 'hej' 
+	}
+
+	var editorElems = document.querySelectorAll('.mde')
+
+	editorElems.forEach(function(eElem){
+		var blah = new editor(eElem)
+		/*
+		eElem.querySelector('.mde-toolbar')
+			.addEventListener('click', function(event){
+				console.log(event)
+			})
+		*/
+	})
 
 	return {
 		insert: insert.bind(event)

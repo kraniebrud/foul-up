@@ -1,0 +1,17 @@
+.svmde .svmde-toolbar {
+	background: #000;
+}
+
+.svmde .svmde-toolbar button{
+	position: relative;
+	margin: 0;
+	border: none;
+	font-weight: normal;
+	font-size: 16px;
+	display: inline-block;
+	width: 7.5%;
+}
+
+.svmde .svmde-toolbar button {
+	color: #FFF;
+}
