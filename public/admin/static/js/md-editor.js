@@ -13,8 +13,13 @@ var md = function(){
 	}
 
 	function simpelInsert(symbol, text){
-		if(typeof symbol === 'object') execInsert(symbol[0]+text+symbol[0])
-		else if(text.charAt(0) !== symbol.trim()) execInsert(symbol+text)	
+		if (typeof symbol === 'object'){
+			var symb = symbol[0]
+			execInsert(symb+text+symb)
+		} 
+		else if(text.charAt(0) !== symbol){
+			execInsert(symbol+' '+text)
+		}	
 	}
 
 	function insert(cmd) {
@@ -27,7 +32,7 @@ var md = function(){
 
 		switch(cmd) {
 			case 'h1': 
-				simpelInsert('# ', text)
+				simpelInsert('#', text)
 				break;
 			case 'b':
 				simpelInsert(['**'], text)
