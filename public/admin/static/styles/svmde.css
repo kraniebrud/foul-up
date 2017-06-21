@@ -1,7 +1,7 @@
 .svmde-container .svmde-toolbar {
 	margin: 0;
 	padding: 0;
-	height: 40px;
+	height: 35px;
 	background: #000;
 	font-family: monaco, Consolas, "Lucida Console", monospace;
 }
@@ -9,17 +9,17 @@
 .svmde-container .svmde-toolbar li {
 	margin: 0;
 	padding: 0;
+	height: 100%;
 	position: relative;
 	border: none;
 	font-weight: normal;
-	font-size: 16px;
+	font-size: 14px;
 	display: inline-block;
 	width: 7.5%;
 	color: #FFF;
 }
 
 .svmde-container .svmde-toolbar li:before {
-	background: red;
 	position: absolute;
 	display: block;
 	width: 100%;
@@ -27,9 +27,9 @@
 	text-align: center;
 	top: 0;
 	left: 0;
+	line-height: 2.6;
 }
 
 .svmde-container .svmde-toolbar li[data-cmd='h1']:before {
-	background: blue;
-	content: 'H1'
+	content: 'H1';
 }

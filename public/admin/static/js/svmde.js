@@ -54,8 +54,7 @@
 
 	function insert (cmd, textarea){
 		textarea.focus()
-		var sTxt = getSelection()
-		var insTxt = sTxt.length === 0 ? 'Your text here' : sTxt
+		var insTxt = getSelection()
 		switch(cmd) {
 			case 'h1': 
 				simpleInsert('#', insTxt)
