@@ -11,32 +11,14 @@
 			<input name="title" type="text" value="{{data.title}}" required>
 			
 			{{> imagePicker data}}
-<!--
-			<label>Content</label>
-			<div class="mde">
-				<div class="mde-toolbar">
-					<button type="button">
-						H1
-					</button>
-					<button type="button" onclick="svmde.insert('b')">
-						B
-					</button>
-					<button type="button" onclick="svmde.insert('u')">
-						U
-					</button>
-				</div>
-				<textarea class="mdEditor" contenteditable="true" name="contentMarkdown">{{data.contentMarkdown}}</textarea>
-			</div>
-			<label>Notes <small>(sidebar)</small></label>
-			<textarea name="notesMarkdown">{{data.notesMarkdown}}</textarea>
--->
+
 			<br>
 
-			<label>svmde test</label>
-			<textarea class="svmde" name="contentMarkdown">{{data.contentMarkdown}}</textarea>
+			<label>Content</label>
+			<textarea class="svmde" wrap="hard" name="contentMarkdown">{{data.contentMarkdown}}</textarea>
 			
 			<label>Notes <small>(sidebar)</small></label>
-			<textarea name="notesMarkdown">{{data.notesMarkdown}}</textarea>
+			<textarea class="svmde" contenteditable="true" name="notesMarkdown">{{data.notesMarkdown}}</textarea>
 
 			<br>
 			<button type="submit">Post</button>

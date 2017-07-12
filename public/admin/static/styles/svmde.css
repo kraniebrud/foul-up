@@ -1,35 +1,64 @@
 .svmde-container .svmde-toolbar {
 	margin: 0;
 	padding: 0;
-	height: 35px;
+	height: 40px;
 	background: #000;
 	font-family: monaco, Consolas, "Lucida Console", monospace;
+	display: table;
+	width: 100%;
+	font-size: 18px;
 }
 
 .svmde-container .svmde-toolbar li {
+	display: table-cell;
+	vertical-align: middle;
 	margin: 0;
 	padding: 0;
-	height: 100%;
+	height: 40px;
+	background: inherit;
 	position: relative;
 	border: none;
 	font-weight: normal;
-	font-size: 14px;
-	display: inline-block;
-	width: 7.5%;
 	color: #FFF;
+	text-align: center;
+	width: 500px;
 }
 
 .svmde-container .svmde-toolbar li:before {
-	position: absolute;
-	display: block;
+	display: inline;
 	width: 100%;
 	height: 100%;
-	text-align: center;
 	top: 0;
 	left: 0;
-	line-height: 2.6;
+}
+.svmde-container .svmde-toolbar li:hover {
+	background: #333;
+}
+.svmde-container .svmde-toolbar li[data-cmd='h1']:before {
+	content: 'H₁';
+	font-size: 14px;
 }
 
-.svmde-container .svmde-toolbar li[data-cmd='h1']:before {
-	content: 'H1';
+.svmde-container .svmde-toolbar li[data-cmd='b']:before {
+	content: 'B';
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.svmde-container .svmde-toolbar li[data-cmd='u']:before {
+	content: 'U';
+	font-size: 14px;
+	text-decoration: underline;
+}
+
+.svmde-container .svmde-toolbar li[data-cmd='ul']:before {
+	content: '•';
+}
+
+.svmde-container .svmde-toolbar li[data-cmd='br']:before {
+	content: '↵';
+}
+
+.svmde-container .svmde-toolbar li[data-cmd='hr']:before {
+	content: '↕';
 }
