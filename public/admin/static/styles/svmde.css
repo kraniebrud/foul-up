@@ -1,3 +1,42 @@
+.svmde-container {
+	position: relative;
+	overflow: none;
+}
+
+.svmde-container textarea.svmde-textarea {
+	position: absolute;
+	left: -9999px;
+
+	left: 0;
+	top: 20px;
+	background: #FFF;
+	width: 100%;
+	height: 100%;
+
+	height: 200px;
+
+}
+
+.svmde-container .svmde-editor {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 300px;
+	height: 300px;
+	z-index: 9999;
+	
+	background: #FFF;
+
+	padding: 5px;
+	border: 1px solid #000;
+/*
+	height: 400px;
+	width: 100%;
+*/
+	white-space: pre-wrap;
+	overflow-y: scroll; 
+}
+
 .svmde-container .svmde-toolbar {
 	margin: 0;
 	padding: 0;
