@@ -1,17 +1,8 @@
 (function (){
-	
-	function getSelection() {
-		// return window.getSelection().toString()
-		return window.getSelection()
-	}
 
-	function textContainsANewLine (txt) {
-		return txt.search('\n') !== -1
-	}
-
-	function execInsert(exTxt){
-		console.log('execInsert')
-		// document.execCommand('insertText', false, exTxt)
+	if(typeof document.execCommand === undefined) {
+		console.log(' :( SVDME missing document.execCommand ')
+		return
 	}
 
 	function buildElemsWithCommands (txtElem, commandList){
@@ -56,13 +47,11 @@
 		}
 	}
 
-	if(typeof window.getSelection !== undefined){ //only if able to getSelection within browser 'window'
-		document.querySelectorAll('.svmde').forEach(
-			function(txtareaElem){
-				newEditor(txtareaElem)
-			}
-		)
-	}
+	document.querySelectorAll('.svmde').forEach(
+		function(txtareaElem){
+			newEditor(txtareaElem)
+		}
+	)
 
 	function newEditor (loadedTextareaElem){
 		var ed = new Editor(loadedTextareaElem)
@@ -71,106 +60,112 @@
 		var editor = ed.elem.editor
 		
 		toolbar.addEventListener('click', function(event){
-			alert('click')
-			//if(ed.isTextareaActivated){
-				insert(event.target.dataset.cmd)
-			//}
+			insert(event.target.dataset.cmd)
 		})
-
-		function markDescription(symb, description, newline) {
-			var startSelect = ed.selectionStart+symb.length
-			var endSelect  = ed.selectionStart+description.length+symb.length
-			if(newline) endSelect++
-			editor.setSelectionRange(startSelect, endSelect)
-		}
 
 		function insert (cmd){
 			textarea.focus()
-			var selStart = textarea.selectionStart
-			var selEnd = textarea.selectionEnd
-			ed.selectionStart = selStart
-			ed.selectionEnd = textarea.selectionEnd
-
-
-
-
-			var insTxt = textarea.value.substring(selStart, selEnd)
-			
-			console.log(editor.innerHTML.substring(selStart, selEnd))
-			
+			var txt = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd)
 			switch(cmd) {
 				case 'h1': 
-					wrappingTag('#', insTxt, 'Headline text')
-					break;
+					execInsert(wrappingTag('#', txt))
+					break
 				case 'b':
-					wrappingTag(['**'], insTxt, 'Bold text')
-					break;
+					execInsert(wrappingTag(['**'], txt))
+					break
 				case 'u':
-					wrappingTag(['*'], insTxt, 'Underlined text')
-					break;
+					execInsert(wrappingTag(['*'], txt))
+					break
 				case 'ul':
-					multilineTag('*', insTxt, 'Listed text')
-					break;
+					execInsert(multilineTag('*', txt))
+					break
 				case 'br':
-					nonWrappingTag('<br>\n', insTxt)
-					break;
+					execInsert(nonWrappingTag('<br>', txt))
+					break
 				case 'hr':
-					nonWrappingTag('\n---\n', insTxt)
+					execInsert(nonWrappingTag('---', txt))
 			}
+		}
+
+		function execInsert(txt){
+			var beforeTxt = textarea.value.substring(0, textarea.selectionStart)
+			var afterTxt = textarea.value.substring(textarea.selectionEnd, textarea.value.length)
+			var ctx = beforeTxt+txt+afterTxt
+
+			editor.innerHTML = ''
+			editor.focus()
+			document.execCommand('insertText', false, txt)
+			
+			textarea.value = ctx
+			textarea.focus()
+		}
+
+		function textOnCurrentLine (extender) { //until cursor position
+			var a = extender ? extender : 0
+			var txtUptoCurr = textarea.value.substring( - textarea.value.length + textarea.selectionStart, a+textarea.selectionStart)
+			var lineArr = txtUptoCurr.split('\n')
+			return lineArr [ lineArr.length -1 ]
+		}
+
+		function textContains (txt, lookup, operator) {
+			if(typeof lookup !== 'object'){
+				if(operator === '==' ) return txt === lookup
+				return txt.search(lookup) !== -1
+			}
+			return lookup.some(function(look){
+				if(operator === '==' ) return txt === look
+				return txt.search(look) !== -1
+			})
 		}
 
 		//<tag></tag> is a wrapping tag
-		function wrappingTag(symbol, sText, description){
-			var noSelectedText = sText.length === 0
-			if(sText === description) return
-			if(description !== undefined && noSelectedText === true){
-				sText = description
+		function wrappingTag(symbol, selectionText){
+			var noSelectedText = selectionText.length === 0
+			var curL = textOnCurrentLine()
+			if( textContains(selectionText.trim(), ['<br>', '---'], '==') ){
+				return selectionText
 			}
-			if (typeof symbol === 'object'){
+			if (typeof symbol === 'object'){ // has before and after, such as ** Bold **
 				var symb = symbol[0]
-				execInsert(symb+sText+symb)
-			} 
+				if( noSelectedText || (curL.length === 0 && textContains(selectionText, ['#', '<br>', '---'])) ) { //abort
+					return selectionText 
+				}
+				return symb+selectionText+symb
+			}
 			else {
-				var firstChar = sText.charAt(0)
-				var symb = firstChar !== symbol ? symbol+' ' : symbol
-				var tValue = ed.elem.textarea.value
-				var charBeforeCursor = tValue.substring(ed.selectionStart, ed.selectionStart-1)
-				execInsert(symb+sText)
-			}
-			if(noSelectedText){
-				markDescription(symb, sText)
+				var symb = selectionText.length === 0 || selectionText.charAt(0) !== symbol ? symbol+' ' : symbol
+				var n = curL.length > 0 ? '\n' : ''
+				return n+symb+selectionText
 			}
 		}
 
-		function nonWrappingTag(symbol, sText){
-			execInsert(sText+symbol)
+		function nonWrappingTag(symbol, selectionText){
+			var bN = textOnCurrentLine().length !== 0 ? '\n' : ''
+			var aN = textOnCurrentLine(2) !== undefined ? '\n' : ''
+			return bN+selectionText+symbol+aN
 		}
 
-		function multilineTag(symbol, sText, description) {
-			if(textContainsANewLine(sText) === false) {
-				wrappingTag(symbol, sText, description)
+		function multilineTag(symbol, selectionText) {
+			var txt = ''
+			if( textContains (selectionText, '\n') === false) {
+				txt = wrappingTag(symbol, selectionText)
 			}
 			else{
-				var lines = sText.split('\n')
+				var lines = selectionText.split('\n')
 				for(var i = 0; lines.length > i; i++){
 					var newline = '\n'
 					if(i === lines.length-1) newline = ''
-					wrappingTag(symbol, lines[i]+newline)
+					txt += wrappingTag(symbol, lines[i]+newline)
 				}
 			}
+			return txt
 		}
+
 	}
 
 	 function Editor (txtElem) {
 	 	var self = this
 		this.elem = buildElemsWithCommands(txtElem, ['h1', 'b', 'u', 'ul', 'br', 'hr'])
-		this.isTextareaActivated = false
-
-		function setActivateTextArea () {
-			self.isTextareaActivated = true 
-			self.elem.textarea.removeEventListener('click', setActivateTextArea)
-		}
-		this.elem.textarea.addEventListener('click', setActivateTextArea)
 	}
 
 })()
