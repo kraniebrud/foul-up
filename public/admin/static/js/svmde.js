@@ -5,13 +5,27 @@
 		return
 	}
 
+	var commandList = ['h', 'b', 'i', 'ul', 'br', 'hr']
+
+	function Editor (txtElem) {
+	 	var self = this
+		this.elem = buildElemsWithCommands(txtElem, commandList)
+	}
+
 	function buildElemsWithCommands (txtElem, commandList){
+		var loadedTextareaAttributes = txtElem.attributes
 		var loadedTextareaValue = txtElem.value
 
 		var mdContainer = document.createElement('div')
 		var mdToolbar = document.createElement('ul')
 		var mdEditor = document.createElement('div')
 		var mdTextarea = document.createElement('textarea')
+
+		//keep the originated attributes on textarea
+		for(var i = 0; loadedTextareaAttributes.length > i; i++){
+			var attr = loadedTextareaAttributes[i]
+			mdTextarea.setAttribute(attr.nodeName, attr.value)
+		}
 
 		var containerIdClass = 'svmde'+Date.now()
 		mdContainer.className='svmde-container '+containerIdClass
@@ -52,6 +66,14 @@
 			newEditor(txtareaElem)
 		}
 	)
+	
+	function enableOrDisableCommands (disableCmd, toolbar, cmds) {
+		var disableClass = disableCmd ? 'disabled' : ''
+		cmds.forEach( function(cmd) {
+			toolbar.querySelector('li[data-cmd='+cmd+']').className=disableClass
+		})
+		
+	}
 
 	function newEditor (loadedTextareaElem){
 		var ed = new Editor(loadedTextareaElem)
@@ -60,20 +82,29 @@
 		var editor = ed.elem.editor
 		
 		toolbar.addEventListener('click', function(event){
-			insert(event.target.dataset.cmd)
+			var t = event.target
+			if(t.className.indexOf('disabled') === -1) {
+				insert(t.dataset.cmd)
+			}
 		})
+		
+		setInterval(function(){
+			var selectionText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd)
+			var noSelectedText = selectionText.trim().length === 0
+			enableOrDisableCommands(noSelectedText, toolbar, ['b', 'i'])
+		}, 200)
 
 		function insert (cmd){
-			textarea.focus()
+			textarea.focus() //keeps the history (ctrl+z happy)
 			var txt = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd)
 			switch(cmd) {
-				case 'h1': 
+				case 'h': 
 					execInsert(wrappingTag('#', txt))
 					break
 				case 'b':
 					execInsert(wrappingTag(['**'], txt))
 					break
-				case 'u':
+				case 'i':
 					execInsert(wrappingTag(['*'], txt))
 					break
 				case 'ul':
@@ -86,6 +117,12 @@
 					execInsert(nonWrappingTag('---', txt))
 			}
 		}
+
+		editor.addEventListener('keyup', function(){
+			editor.innerHTML = ''
+			editor.focus()
+			document.execCommand('insertText', false, textarea.value)
+		})
 
 		function execInsert(txt){
 			var beforeTxt = textarea.value.substring(0, textarea.selectionStart)
@@ -100,7 +137,7 @@
 			textarea.focus()
 		}
 
-		function textOnCurrentLine (extender) { //until cursor position
+		function textOnCurrentLine (extender) { //that is until cursor position
 			var a = extender ? extender : 0
 			var txtUptoCurr = textarea.value.substring( - textarea.value.length + textarea.selectionStart, a+textarea.selectionStart)
 			var lineArr = txtUptoCurr.split('\n')
@@ -120,14 +157,13 @@
 
 		//<tag></tag> is a wrapping tag
 		function wrappingTag(symbol, selectionText){
-			var noSelectedText = selectionText.length === 0
 			var curL = textOnCurrentLine()
 			if( textContains(selectionText.trim(), ['<br>', '---'], '==') ){
 				return selectionText
 			}
 			if (typeof symbol === 'object'){ // has before and after, such as ** Bold **
 				var symb = symbol[0]
-				if( noSelectedText || (curL.length === 0 && textContains(selectionText, ['#', '<br>', '---'])) ) { //abort
+				if(curL.length === 0 && textContains(selectionText, ['# ', '<br>', '---'])) { //abort
 					return selectionText 
 				}
 				return symb+selectionText+symb
@@ -160,12 +196,5 @@
 			}
 			return txt
 		}
-
 	}
-
-	 function Editor (txtElem) {
-	 	var self = this
-		this.elem = buildElemsWithCommands(txtElem, ['h1', 'b', 'u', 'ul', 'br', 'hr'])
-	}
-
 })()
