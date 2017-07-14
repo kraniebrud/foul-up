@@ -1,5 +1,3 @@
-'USE STRICT'
-
 const Boom = require('boom')
 
 const server = require(__base+'/server')

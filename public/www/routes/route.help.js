@@ -1,5 +1,3 @@
-'USE STRICT'
-
 const server = require(__base+'/server')
 
 server.route({

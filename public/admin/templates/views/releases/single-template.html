@@ -26,16 +26,11 @@
 			{{> imagePicker data}}
 
 			<label>Press</label>
-			<textarea name="contentMarkdown">{{data.contentMarkdown}}</textarea>
+			<textarea class="svmde" name="contentMarkdown">{{data.contentMarkdown}}</textarea>
 
 			<div class="form-category">
 				<p class="form-category-name">Soundcloud</p>
 				<label>Soundcloud link</label>
-				<small>
-					If the soundcloud player fails, the link inserted beneath 
-					might lead the visitors to the direct soundcloud-www instead
-					... a safetybelt so to speak
-				</small>
 				<input name="soundcloud-linkUrl" type="text" value="{{data.soundcloud.linkUrl}}" required>
 				<!--
 					Not important at the moment 

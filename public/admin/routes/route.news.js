@@ -1,8 +1,6 @@
-'USE STRICT'
-
 const server = require(__base+'/server')
 const path = require('path')
-
+const shortid = require('shortid')
 const makeSlug = require('slugg')
 const marked = require('marked')
 const Boom = require('boom')
@@ -66,6 +64,8 @@ server.route({
 			{_id: postId}, 
 			{
 				title: payload.title,
+				draft: payload.draft,
+				draftUid: shortid.generate(),
 				images: payload.images,
 				contentMarkdown: payload.contentMarkdown,
 				contentHtml: marked(payload.contentMarkdown),
@@ -101,6 +101,8 @@ server.route({
 		const payload = request.payload
 		News.create({
 			slug: makeSlug(payload.title),
+			draft: payload.draft,
+			draftUid: shortid.generate(),
 			title: payload.title,
 			images: payload.images,
 			contentMarkdown: payload.contentMarkdown,

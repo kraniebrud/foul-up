@@ -20,7 +20,11 @@ const NewsSchema = new mongoose.Schema({
 	},
 	draft: {
 		type: Boolean,
-		default: false
+		default: true
+	},
+	draftUid: {
+		type: String,
+		required: true
 	},
 	images: [{
 		type: mongoose.Schema.Types.ObjectId, 

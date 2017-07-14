@@ -6,6 +6,10 @@
 	</header>	
 	<main class="create">
 		<form method="post">
+			
+			{{#if data.draft}}
+					{{data.draftUid}}
+			{{/if}}
 
 			<label>Title</label>
 			<input name="title" type="text" value="{{data.title}}" required>
@@ -20,6 +24,11 @@
 			<label>Notes <small>(sidebar)</small></label>
 			<textarea class="svmde" name="notesMarkdown">{{data.notesMarkdown}}</textarea>
 
+			<label>Publish now ?</label>
+			<select name="draft">
+				<option value="true" selected="selected">No, I will publish later (draft)</option>
+				<option value="false">Yes, publish now</option>
+			</select>
 			<br>
 			<button type="submit">Post</button>
 		</form>

@@ -1,5 +1,3 @@
-'USE STRICT'
-
 const server = require(__base+'/server')
 
 const Boom = require('boom')
@@ -16,7 +14,7 @@ const getNews = function() {
 		const page = (!p || p === 0 ? 1 : p)
 
 		return News
-			.find({})
+			.find({draft: false})
 			.skip( perPage * (page-1) )
 			.limit(perPage)
 			.populate('images')
@@ -58,15 +56,21 @@ const getNews = function() {
 
 		.catch(err => {
 			console.error(err)
-			reply(Boom.badData(err))
+			reply(Boom.badImplementation(err))
 		})
 
 	})
 
-	const fromSlug = ((request, reply) => {
+	const singleArticle = ((request, reply) => {
 		const slug = request.params.slug
+		const draftUid = request.query.draft
+		const news = {slug, draft: false}
+		if(draftUid !== undefined) {
+			Object.assign(news, {draft: true, draftUid})
+		}
+		console.log(news)
 		return News
-			.findOne({slug: request.params.slug})
+			.findOne({draft: true, draftUid})
 			.populate('images')
 
 		.then(data => {
@@ -79,22 +83,25 @@ const getNews = function() {
 					})
 					.code(404)
 			}
-			reply.view('news/single-template', {
-				title: "News, "+data.title,
+			const viewData = {
 				menu: {active : 'news'},
+				title: "News, "+data.title,
 				post: data
-			})
+			}
+			if(data.draft) {
+				return reply.view('news/single-template', viewData).code(403)
+			}
+			reply.view('news/single-template', viewData)
 		})
 
 		.catch(err => {
 			console.error(err)
-			reply(Boom.badData(err))
+			reply(Boom.badImplementation(err))
 		})
 
 	})
-
-	return {paginated, fromSlug}
-
+	return {paginated, singleArticle}
+	
 }()
 
 server.route({
@@ -117,6 +124,6 @@ server.route({
 
 server.route({
 	method: ['GET'], 
-	path: '/news/article/{slug}',
-	handler: getNews.fromSlug
+	path: '/news/article/{slug}/{draft?}',
+	handler: getNews.singleArticle
 })
