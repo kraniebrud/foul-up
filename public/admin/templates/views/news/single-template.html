@@ -34,7 +34,7 @@
 
 			<label>Publish now ?</label>
 			<select name="draft">
-				<option value="true" selected="selected">No, I will publish later (draft)</option>
+				<option value="true" {{#if data.draft}}selected="selected"{{/if}}>No, I will publish later (draft)</option>
 				<option value="false">Yes, publish now</option>
 			</select>
 			<br>
