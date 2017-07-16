@@ -69,9 +69,8 @@ const getNews = function() {
 		if(draftUid !== undefined) {
 			Object.assign(news, {draft: true, draftUid})
 		}
-		console.log(news)
 		return News
-			.findOne({draft: true, draftUid})
+			.findOne(news)
 			.populate('images')
 
 		.then(data => {

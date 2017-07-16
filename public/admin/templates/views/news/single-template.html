@@ -9,12 +9,12 @@
 			{{#if data._id}}
 				<p> 
 					{{#if data.draft}}
-						<a href="{{{websiteUrl}}}/{{data.slug}}?draft={{data.draftUid}}" target="_blank">
-							{{{websiteUrl}}}/{{data.slug}}?draft={{data.draftUid}}
+						<a href="{{{websiteUrl}}}/news/article/{{data.slug}}?draft={{data.draftUid}}" target="_blank">
+							{{data.slug}}?draft={{data.draftUid}}
 						</a>
 					{{else}}
-						<a href="{{{websiteUrl}}}/{{data.slug}}" target="_blank">
-							{{{websiteUrl}}}/{{data.slug}}
+						<a href="{{{websiteUrl}}}/news/article/{{data.slug}}" target="_blank">
+							{{data.slug}}
 						</a> 
 					{{/if}}
 	 			</p>
