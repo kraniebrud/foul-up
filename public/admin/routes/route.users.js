@@ -1,5 +1,3 @@
-'USE STRICT'
-
 const server = require(__base+'/server')
 const Boom = require('boom')
 const bcrypt = require('bcryptjs')

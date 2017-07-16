@@ -328,6 +328,7 @@ main header {
 	position: relative;
 	text-align: center;
 	width: 24.33%;
+	max-height: 125px;
 	overflow: hidden;
 	float: left;
 	margin: 2px;

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 
-//see for using ref
-//https://alexanderzeitler.com/articles/mongoose-referencing-schema-in-properties-and-arrays/
 const NewsSchema = new mongoose.Schema({
 	slug: {
 		type: String, 

@@ -6,11 +6,19 @@
 	</header>	
 	<main class="create">
 		<form method="post">
-			
-			{{#if data.draft}}
-					{{data.draftUid}}
-			{{/if}}
-
+			{{#if data._id}}
+				<p> 
+					{{#if data.draft}}
+						<a href="{{{websiteUrl}}}/{{data.slug}}?draft={{data.draftUid}}" target="_blank">
+							{{{websiteUrl}}}/{{data.slug}}?draft={{data.draftUid}}
+						</a>
+					{{else}}
+						<a href="{{{websiteUrl}}}/{{data.slug}}" target="_blank">
+							{{{websiteUrl}}}/{{data.slug}}
+						</a> 
+					{{/if}}
+	 			</p>
+ 			{{/if}}
 			<label>Title</label>
 			<input name="title" type="text" value="{{data.title}}" required>
 			

@@ -1,4 +1,5 @@
 const server = require(__base+'/server')
+
 const path = require('path')
 const shortid = require('shortid')
 const makeSlug = require('slugg')
@@ -38,6 +39,7 @@ server.route({
 			if(!postData) return reply(Boom.notFound())
 			
 			ImageFile.find({})
+			.sort({_id: -1})
 			
 			.then(images => {
 				postData.allImages = images

@@ -1,19 +1,21 @@
-'USE STRICT'
+const server = require('./server')
+
+const {
+	SERVER_HOST, ADMIN_PORT,
+	COOKIE_NAME, COOKIE_PASSWORD, COOKIE_TTL
+} = process.env
 
 const bcrypt = require('bcryptjs')
-
-const server = require('./server')
 const path = require('path')
 
 const connection = {
-	host: 'localhost',
-	port: 8585
+	host: SERVER_HOST,
+	port: ADMIN_PORT
 }
 
-/*
-	makes it easy to see if request accepts json
-	**usage request.likesJson()
-*/
+// makes it easy to see if request(s) accepts json
+// suitable to transform endpoints for API-usage 
+// decorates -> request.likesJson()
 function hapiRequestAcceptsJson(server, options, next) {
 	server.decorate('request', 'likesJson', function () {
 		return this.headers.accept === 'application/json'
@@ -42,14 +44,13 @@ server.register([
 	}
 )
 
-const cookie = require(__base+'/../configuration/config').cookie
 server.auth.strategy(
 	'session', 'cookie', 'required', //required on routes by default 
 	{
-		cookie: cookie.cookie,
-		password: cookie.password,
+		cookie: COOKIE_NAME,
+		password: COOKIE_PASSWORD,
 		redirectTo: '/login',
-		ttl: cookie.ttl, //3days in msec
+		ttl: COOKIE_TTL, 
 		isSecure: false, //non-http
 	}
 )
@@ -93,5 +94,4 @@ server.views({
 	helpersPath: './admin/templates/helpers'
 })
 
-//Them routes
 require('./admin/server.routes')

@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const Hapi = require('hapi')
 global.__base = __dirname
 

@@ -1,4 +1,5 @@
 const server = require(__base+'/server')
+const {NEWS_PER_PAGE} = process.env
 
 const Boom = require('boom')
 
@@ -10,7 +11,7 @@ const getNews = function() {
 	const paginated =  ((request, reply) => {
 		const post = {items: null}
 		const p = parseInt(request.params.page)
-		const perPage = 2
+		const perPage = NEWS_PER_PAGE ? parseInt(NEWS_PER_PAGE) : 5
 		const page = (!p || p === 0 ? 1 : p)
 
 		return News

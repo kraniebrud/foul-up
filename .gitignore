@@ -2,6 +2,7 @@ node_modules
 npm-debug.log
 configuration/setup.*
 logs/*.log
+*.env
 
 public/uploads/images/original/*
 public/uploads/images/resized/*

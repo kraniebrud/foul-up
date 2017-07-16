@@ -1,12 +1,13 @@
-'USE STRICT'
-
 const server = require('./server')
+
+const {SERVER_PORT} = process.env
+
 const path = require('path')
 const fs = require('fs')
 
 const connection = {
 	host: 'localhost',
-	port: 8080
+	port: SERVER_PORT
 }
 
 server.register([require('inert'), require('vision')], (err) => {
