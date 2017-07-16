@@ -111,10 +111,10 @@
 					execInsert(multilineTag('*', txt))
 					break
 				case 'br':
-					execInsert(nonWrappingTag('<br>', txt))
+					execInsert('<br>')
 					break
 				case 'hr':
-					execInsert(nonWrappingTag('---', txt))
+					execInsert('\n---\n')
 			}
 		}
 
@@ -174,13 +174,13 @@
 				return n+symb+selectionText
 			}
 		}
-
+/*
 		function nonWrappingTag(symbol, selectionText){
 			var bN = textOnCurrentLine().length !== 0 ? '\n' : ''
 			var aN = textOnCurrentLine(2) !== undefined ? '\n' : ''
 			return bN+selectionText+symbol+aN
 		}
-
+*/
 		function multilineTag(symbol, selectionText) {
 			var txt = ''
 			if( textContains (selectionText, '\n') === false) {
