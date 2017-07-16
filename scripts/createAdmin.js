@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 require(__base+'/db/connection')
 
 const bcrypt = require('bcryptjs')
