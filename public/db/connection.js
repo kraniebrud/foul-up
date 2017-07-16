@@ -6,7 +6,10 @@ mongoose.connect(
 		`mongodb://${DB_HOST}/${DB_NAME}:${DB_PORT}`, {
 		server: { poolSize: 5 },
 		user: DB_USERNAME,
-		pass: DB_PASSWORD
+		pass: DB_PASSWORD,
+		auth: {
+			authdb: DB_AUTH_NAME
+		}
 	}
 )
 
