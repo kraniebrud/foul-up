@@ -6,7 +6,7 @@ const {
 const mongoose = require('mongoose')
 
 mongoose.connect(
-	`mongodb://${DB_HOST}/${DB_NAME}`, {
+	`mongodb://${DB_HOST}/${DB_NAME}:${DB_PORT}`, {
 		server: { poolSize: 5 },
 		user: DB_USERNAME,
 		pass: DB_PASSWORD,
