@@ -62,12 +62,19 @@ server.route({
 	handler: ((request, reply) => {
 		const payload = request.payload
 		const postId = request.params.postId
+
+		const draftUid = payload.draftUid
+
+		console.log(draftUid)
+		console.log(draftUid)
+		console.log(draftUid)
+
 		News.findOneAndUpdate(
 			{_id: postId}, 
 			{
 				title: payload.title,
 				draft: payload.draft,
-				draftUid: shortid.generate(),
+				draftUid: draftUid ? draftUid : shortid.generate(),
 				images: payload.images,
 				contentMarkdown: payload.contentMarkdown,
 				contentHtml: marked(payload.contentMarkdown),
