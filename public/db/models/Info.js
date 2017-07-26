@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
 const InfoSchema = new mongoose.Schema({
-	contentHeader: String,
+	contentHeader: {
+		type: String,
+		default: undefined
+	},
 	contentMarkdown: {
 		type: String, 
 		default: null
