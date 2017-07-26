@@ -26,17 +26,21 @@ server.route({
 	handler: ((request, reply) => {
 		const payload = request.payload
 
-		Info.findOneAndUpdate({
-			contentHeader: payload.contentHeader,
-			contentMarkdown: payload.contentMarkdown,
-			contentHtml: marked(payload.contentMarkdown),
-			emailAddress: payload.emailAddress,
-			soundcloudUrl: payload.soundcloudUrl,
-			facebookUrl: payload.facebookUrl,
-			instagramUrl: payload.instagramUrl,
-			distributionText: payload.distributionText,
-			distributionUrl: payload.distributionUrl
-		})
+		Info.findOneAndUpdate(
+			{}, 
+			{
+				contentHeader: payload.contentHeader,
+				contentMarkdown: payload.contentMarkdown,
+				contentHtml: marked(payload.contentMarkdown),
+				emailAddress: payload.emailAddress,
+				soundcloudUrl: payload.soundcloudUrl,
+				facebookUrl: payload.facebookUrl,
+				instagramUrl: payload.instagramUrl,
+				distributionText: payload.distributionText,
+				distributionUrl: payload.distributionUrl
+			},
+			{upsert: true, new: true, setDefaultsOnInsert: true}
+		)
 
 		.then(res => reply().redirect('/info'))	
 		.catch(err => reply(Boom.badData(err)))
