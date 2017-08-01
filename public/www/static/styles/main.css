@@ -266,10 +266,10 @@ article header {
 }
 #main.releases article h1, #main.releases article h2 {
 	margin: 0;
-	font-size: 1rem;
+	font-size: 1.2rem;
 }
 #main.releases article h1 {
-	font-size: 1.2rem;
+	text-decoration: underline;
 	margin-bottom: 5px;
 }
 #main.releases article li {
