@@ -106,4 +106,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	if(scpEle){
 		scpPlayer(SC.Widget(scpEle))
 	}
+
+	// setting all external links to open in a new tab
+	(function () {
+		var links = document.links;
+		for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+			if (links[i].hostname != window.location.hostname) {
+				links[i].target = '_blank';
+			} 
+		}
+	})()
+
 })
