@@ -162,7 +162,6 @@ img.full{
 }
 
 #main.news article .notes .notes-images .images img {
-	margin-top: 5px;
 	width: 100% !important;
 	height: auto !important;
 }
