@@ -7,6 +7,7 @@
 		<aside class="notes">
 			<h2>Social</h2>
 			<ul class="social">
+					{{#if data.soundcloudUrl}}
 					<li>
 						<a
 							alt="FOUL-UP, Soundcloud" 
@@ -18,6 +19,8 @@
 							<span>Soundcloud</span>
 						</a>
 					</li>
+					{{/if}}
+					{{#if data.facebookUrl}}
 					<li>
 						<a
 							alt="FOUL-UP, Facebook" 
@@ -29,17 +32,33 @@
 							<span>Facebook</span>
 						</a>
 					</li>
+					{{/if}}
+					{{#if data.youtubeUrl}}
 					<li>
 						<a 
-							alt="FOUL-UP, Instagram"
-							title="FOUL-UP, Instagram"
-							href="{{data.instagramUrl}}" 
+							alt="FOUL-UP, Youtube"
+							title="FOUL-UP, Youtube"
+							href="{{data.youtubeUrl}}" 
 							target="_blank"
 						>
-							<img src="/assets/images/instagram-logo.svg">
-							<span>Instagram</span>
+							<img src="/assets/images/youtube-logo.svg">
+							<span>YouTube</span>
 						</a>
 					</li>
+					{{/if}}
+					{{#if data.spotifyUrl}}
+					<li>
+						<a 
+							alt="FOUL-UP, Spotify"
+							title="FOUL-UP, Spotify"
+							href="{{data.spotifyUrl}}" 
+							target="_blank"
+						>
+							<img src="/assets/images/spotify-logo.svg">
+							<span>Spotify</span>
+						</a>
+					</li>
+					{{/if}}
 			</ul>
 			<br>
 

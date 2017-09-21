@@ -17,6 +17,8 @@ const InfoSchema = new mongoose.Schema({
 	soundcloudUrl: String,
 	facebookUrl: String,
 	instagramUrl: String,
+	youtubeUrl: String,
+	spotifyUrl: String,
 	distributionUrl: String,
 	distributionText: String
 })

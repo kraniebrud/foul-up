@@ -36,6 +36,8 @@ server.route({
 				soundcloudUrl: payload.soundcloudUrl,
 				facebookUrl: payload.facebookUrl,
 				instagramUrl: payload.instagramUrl,
+				youtubeUrl: payload.youtubeUrl,
+				spotifyUrl: payload.spotifyUrl,
 				distributionText: payload.distributionText,
 				distributionUrl: payload.distributionUrl
 			},
